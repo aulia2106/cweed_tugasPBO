@@ -65,16 +65,3 @@ INSERT INTO grade (kategori, keterangan, harga_per_kg) VALUES
 ('Grade A', 'Kering sempurna, bersih dari kotoran', 50000),
 ('Grade B', 'Kadar air sedang, sedikit rumput liar', 35000),
 ('Grade C', 'Lembab/basah, perlu dijemur ulang', 20000);
-
--- Distributor Keonho (ID: 5) membayar total Rp 1.200.000 untuk belanjaan hari ini
-INSERT INTO transaksi (tanggal, status_transaksi, total_pembayaran, id_user) VALUES
-('2026-05-30', 'Lunas', 1200000, 5);
-
--- Semua barang ini dimasukkan ke dalam id_transaksi yang SAMA (yaitu ID: 1)
-INSERT INTO keranjang (jumlah_per_kg, subtotal, id_transaksi, id_grade, id_nelayan) VALUES
--- Baris 1: Hasil grading rumput laut punya James (ID: 1). 
--- Dapat Grade A (Harga 50.000) sebanyak 10 kg -> Subtotal 500.000
-(10.00, 500000, 1, 1, 1),
--- Baris 2: Hasil grading rumput laut punya Seonghyeon (ID: 4). 
--- Dapat Grade B (Harga 35.000) sebanyak 20 kg -> Subtotal 700.000
-(20.00, 700000, 1, 2, 4);
