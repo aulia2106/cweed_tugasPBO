@@ -14,7 +14,7 @@ CREATE TABLE usser (
 
 CREATE TABLE demand (
     id_demand SERIAL,
-    target_kg DECIMAL(10, 2) NOT NULL,
+    target_kg NUMERIC(10, 2) NOT NULL,
     deadline DATE NOT NULL,
     id_user INT, 
     PRIMARY KEY (id_demand),
@@ -41,7 +41,7 @@ CREATE TABLE transaksi (
 
 CREATE TABLE keranjang (
     id_keranjang SERIAL,
-    jumlah_per_kg DECIMAL(10, 2) NOT NULL, 
+    jumlah_per_kg NUMERIC(10, 2) NOT NULL, 
     subtotal INT NOT NULL,                 
     id_transaksi INT NOT NULL,             
     id_grade INT NOT NULL,                 
