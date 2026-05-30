@@ -4,8 +4,8 @@ CREATE TABLE usser (
     id_user SERIAL,
     nama VARCHAR(100) NOT NULL,
     no_hp VARCHAR(20),
-    username VARCHAR(10) NOT NULL UNIQUE,
-    passwd VARCHAR(10) NOT NULL, 
+    username VARCHAR(50) NOT NULL UNIQUE,
+    passwd VARCHAR(50) NOT NULL, 
     status_konfir_akun VARCHAR(10),
     role_pilihan tipe_role NOT NULL, 
     PRIMARY KEY (id_user)
