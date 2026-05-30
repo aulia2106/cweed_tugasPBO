@@ -22,3 +22,10 @@ CREATE TABLE demand (
 );
 
 -- LEBOKNE ISI DATANE 
+INSERT INTO usser (nama, no_hp, username, passwd, status_konfir_akun, role_pilihan)
+VALUES
+('james', '11111111', 'Zhao_yufan', 'jamesgantenk', 'Konfirmasi', 'NELAYAN'),
+('martin', '22222222', 'Martin_Edward', 'mybojogwehnei', 'Konfirmasi', 'ADMIN'),
+('juhoon', '33333333', 'Kim_Juhoon', 'juhoonjenggawah', 'Konfirmasi', 'ADMIN'),
+('seonghyeon', '44444444', 'Eom_Eeonghyeon', 'kerenkmuseong', 'Konfirmasi', 'NELAYAN'),
+('keonho', '55555555', 'Ahn_Keonho', 'konoplayerepep', 'Konfirmasi', 'DISTRIBUTOR')
