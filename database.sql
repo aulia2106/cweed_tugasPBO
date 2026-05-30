@@ -21,6 +21,37 @@ CREATE TABLE demand (
     FOREIGN KEY (id_user) REFERENCES usser(id_user) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+CREATE TABLE grade (
+    id_grade SERIAL,
+    kategori VARCHAR(50) NOT NULL, 
+    keterangan TEXT,               
+    harga_per_kg INT NOT NULL,     
+    PRIMARY KEY (id_grade)
+);
+
+CREATE TABLE transaksi (
+    id_transaksi SERIAL,
+    tanggal DATE NOT NULL,
+    status_transaksi VARCHAR(50) NOT NULL, 
+    total_pembayaran INT NOT NULL,        
+    id_user INT,                           
+    PRIMARY KEY (id_transaksi),
+    FOREIGN KEY (id_user) REFERENCES usser(id_user) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+CREATE TABLE keranjang (
+    id_keranjang SERIAL,
+    jumlah_per_kg DECIMAL(10, 2) NOT NULL, 
+    subtotal INT NOT NULL,                 
+    id_transaksi INT NOT NULL,             
+    id_grade INT NOT NULL,                 
+    id_nelayan INT NOT NULL,               
+    PRIMARY KEY (id_keranjang),
+    FOREIGN KEY (id_transaksi) REFERENCES transaksi(id_transaksi) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_grade) REFERENCES grade(id_grade) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_nelayan) REFERENCES usser(id_user) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
 -- LEBOKNE ISI DATANE 
 INSERT INTO usser (nama, no_hp, username, passwd, status_konfir_akun, role_pilihan)
 VALUES
@@ -29,3 +60,21 @@ VALUES
 ('juhoon', '33333333', 'Kim_Juhoon', 'juhoonjenggawah', 'Konfirmasi', 'ADMIN'),
 ('seonghyeon', '44444444', 'Eom_Eeonghyeon', 'kerenkmuseong', 'Konfirmasi', 'NELAYAN'),
 ('keonho', '55555555', 'Ahn_Keonho', 'konoplayerepep', 'Konfirmasi', 'DISTRIBUTOR')
+
+INSERT INTO grade (kategori, keterangan, harga_per_kg) VALUES
+('Grade A', 'Kering sempurna, bersih dari kotoran', 50000),
+('Grade B', 'Kadar air sedang, sedikit rumput liar', 35000),
+('Grade C', 'Lembab/basah, perlu dijemur ulang', 20000);
+
+-- Distributor Keonho (ID: 5) membayar total Rp 1.200.000 untuk belanjaan hari ini
+INSERT INTO transaksi (tanggal, status_transaksi, total_pembayaran, id_user) VALUES
+('2026-05-30', 'Lunas', 1200000, 5);
+
+-- Semua barang ini dimasukkan ke dalam id_transaksi yang SAMA (yaitu ID: 1)
+INSERT INTO keranjang (jumlah_per_kg, subtotal, id_transaksi, id_grade, id_nelayan) VALUES
+-- Baris 1: Hasil grading rumput laut punya James (ID: 1). 
+-- Dapat Grade A (Harga 50.000) sebanyak 10 kg -> Subtotal 500.000
+(10.00, 500000, 1, 1, 1),
+-- Baris 2: Hasil grading rumput laut punya Seonghyeon (ID: 4). 
+-- Dapat Grade B (Harga 35.000) sebanyak 20 kg -> Subtotal 700.000
+(20.00, 700000, 1, 2, 4);
