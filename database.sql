@@ -1,4 +1,3 @@
--- BUAT TABEL E SEK
 CREATE TYPE tipe_role AS ENUM ('ADMIN', 'DISTRIBUTOR', 'NELAYAN');
 
 CREATE TABLE usser (
@@ -21,12 +20,25 @@ CREATE TABLE demand (
     FOREIGN KEY (id_user) REFERENCES usser(id_user) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+CREATE TABLE panen (
+    id_panen SERIAL,
+    berat_per_kg NUMERIC(10,2) NOT NULL,
+    tanggal DATE NOT NULL,
+    id_user INT,
+    PRIMARY KEY (id_panen),
+    FOREIGN KEY (id_user) REFERENCES usser(id_user) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
 CREATE TABLE grade (
     id_grade SERIAL,
-    kategori VARCHAR(50) NOT NULL, 
-    keterangan TEXT,               
-    harga_per_kg INT NOT NULL,     
-    PRIMARY KEY (id_grade)
+    kategori VARCHAR(50) NOT NULL,
+    keterangan VARCHAR(100),
+    harga_per_kg NUMERIC(10,2) NOT NULL,
+    id_panen INT,
+    id_demand INT,
+    PRIMARY KEY (id_grade),
+    FOREIGN KEY (id_panen) REFERENCES panen(id_panen) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (id_demand) REFERENCES demand(id_demand) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE transaksi (
@@ -61,7 +73,26 @@ VALUES
 ('seonghyeon', '44444444', 'Eom_Eeonghyeon', 'kerenkmuseong', 'Konfirmasi', 'NELAYAN'),
 ('keonho', '55555555', 'Ahn_Keonho', 'konoplayerepep', 'Konfirmasi', 'DISTRIBUTOR')
 
-INSERT INTO grade (kategori, keterangan, harga_per_kg) VALUES
-('Grade A', 'Kering sempurna, bersih dari kotoran', 50000),
-('Grade B', 'Kadar air sedang, sedikit rumput liar', 35000),
-('Grade C', 'Lembab/basah, perlu dijemur ulang', 20000);
+INSERT INTO demand (target_kg, deadline, id_user)
+VALUES
+(500.00, '2026-06-30', 2),
+(300.00, '2026-07-15', 3),
+(450.00, '2026-07-20', 2),
+(600.00, '2026-08-01', 3),
+(350.00, '2026-08-10', 2);
+
+INSERT INTO panen (berat_per_kg, tanggal, id_user)
+VALUES
+(100.50, '2026-05-01', 1),
+(75.25, '2026-05-02', 4),
+(120.00, '2026-05-03', 1),
+(95.75, '2026-05-04', 4),
+(150.00, '2026-05-05', 1);
+
+INSERT INTO grade (kategori, keterangan, harga_per_kg, id_panen, id_demand)
+VALUES
+('A', 'Kualitas sangat baik', 15000, 1, 1),
+('B', 'Kualitas baik', 13000, 2, 2),
+('C', 'Kualitas cukup', 11000, 3, 3),
+('A', 'Kualitas sangat baik', 15000, 4, 4),
+('B', 'Kualitas baik', 13000, 5, 5);
