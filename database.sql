@@ -51,19 +51,6 @@ CREATE TABLE transaksi (
     FOREIGN KEY (id_user) REFERENCES usser(id_user) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-CREATE TABLE keranjang (
-    id_keranjang SERIAL,
-    jumlah_per_kg NUMERIC(10, 2) NOT NULL, 
-    subtotal INT NOT NULL,                 
-    id_transaksi INT NOT NULL,             
-    id_grade INT NOT NULL,                 
-    id_nelayan INT NOT NULL,               
-    PRIMARY KEY (id_keranjang),
-    FOREIGN KEY (id_transaksi) REFERENCES transaksi(id_transaksi) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (id_grade) REFERENCES grade(id_grade) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY (id_nelayan) REFERENCES usser(id_user) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
 -- LEBOKNE ISI DATANE 
 INSERT INTO usser (nama, no_hp, username, passwd, status_konfir_akun, role_pilihan)
 VALUES
