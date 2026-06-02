@@ -6,7 +6,7 @@ CREATE TABLE usser (
     no_hp VARCHAR(20) NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
     passwd VARCHAR(50) NOT NULL, 
-    status_konfir_akun VARCHAR(10),
+    status_konfir_akun VARCHAR(10) NOT NULL,
     role_pilihan tipe_role NOT NULL, 
     PRIMARY KEY (id_user)
 );
