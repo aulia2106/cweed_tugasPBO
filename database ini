@@ -83,3 +83,8 @@ VALUES
 ('C', 'Kualitas cukup', 11000, 3, 3),
 ('A', 'Kualitas sangat baik', 15000, 4, 4),
 ('B', 'Kualitas baik', 13000, 5, 5);
+
+
+INSERT INTO transaksi (tanggal, status_transaksi, total_pembayaran)
+VALUES 
+('2026-6-2', 'selesai', '200000')
